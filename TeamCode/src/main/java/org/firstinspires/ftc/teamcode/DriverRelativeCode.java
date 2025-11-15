@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -47,6 +47,11 @@ public class DriverRelativeCode extends LinearOpMode {
     private DcMotor backLeftDrive = null;
     private DcMotor frontRightDrive = null;
     private DcMotor backRightDrive = null;
+    private DcMotor flyWheel = null;
+
+    private Servo rightIntake = null;
+
+    private Servo leftIntake = null;
 
     private IMU imu  = null;
 
@@ -73,7 +78,9 @@ public class DriverRelativeCode extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
-
+        flyWheel = hardwareMap.get(DcMotor.class, "flywheel");
+        leftIntake = hardwareMap.get(Servo.class, "left_intake");
+        rightIntake = hardwareMap.get(Servo.class, "right_intake");
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
         // ########################################################################################
@@ -88,6 +95,9 @@ public class DriverRelativeCode extends LinearOpMode {
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightIntake.setDirection(Servo.Direction.FORWARD);
+        leftIntake.setDirection(Servo.Direction.FORWARD);
+        flyWheel.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -95,6 +105,7 @@ public class DriverRelativeCode extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
+        flyWheel.setPower(1.0);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -161,6 +172,15 @@ public class DriverRelativeCode extends LinearOpMode {
             backLeftDrive.setPower(backLeftPower);
             backRightDrive.setPower(backRightPower);
 
+
+            if(gamepad1.right_bumper) {
+                rightIntake.setPosition(1.0);
+                leftIntake.setPosition(1.0);
+
+            } else {
+                rightIntake.setPosition(0.0);
+                leftIntake.setPosition(0.0);
+            }
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
