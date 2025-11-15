@@ -5,8 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.ImuOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -50,6 +52,11 @@ public class ExampleDrivebaseFeildRelativeTeleOp extends LinearOpMode {
     private DcMotor frontRightDrive = null;
     private DcMotor backRightDrive = null;
 
+    private DcMotor flywheel = null;
+
+    private Servo leftIntake = null;
+    private Servo rightIntake = null;
+
     private IMU imu = null;
 
     @Override
@@ -74,6 +81,11 @@ public class ExampleDrivebaseFeildRelativeTeleOp extends LinearOpMode {
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
 
+        flywheel = hardwareMap.get(DcMotor.class, "flywheel");
+
+        rightIntake = hardwareMap.get(Servo.class, "right_intake");
+        leftIntake = hardwareMap.get(Servo.class, "left_intake");
+
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
         // ########################################################################################
@@ -88,13 +100,19 @@ public class ExampleDrivebaseFeildRelativeTeleOp extends LinearOpMode {
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        flywheel.setDirection(DcMotor.Direction.FORWARD);
+        rightIntake.setDirection(Servo.Direction.FORWARD);
+        leftIntake.setDirection(Servo.Direction.FORWARD);
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
+
         runtime.reset();
+
+        flywheel.setPower(1.0);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -159,6 +177,16 @@ public class ExampleDrivebaseFeildRelativeTeleOp extends LinearOpMode {
             frontRightDrive.setPower(frontRightPower);
             backLeftDrive.setPower(backLeftPower);
             backRightDrive.setPower(backRightPower);
+
+
+            if(gamepad1.right_bumper){
+                rightIntake.setPosition(1.0);
+                leftIntake.setPosition(1.0);
+            }else{
+                rightIntake.setPosition(0.0);
+                leftIntake.setPosition(0.0);
+            }
+
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
