@@ -35,18 +35,17 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @TeleOp(name="Basic: Omni Linear OpMode", group="Linear OpMode")
-@Disabled
 public class ExampleDrivebaseTeleOp extends LinearOpMode {
 
-        // Declare OpMode members for each of the 4 motors.
-        private ElapsedTime runtime = new ElapsedTime();
-        private DcMotor frontLeftDrive = null;
-        private DcMotor backLeftDrive = null;
-        private DcMotor frontRightDrive = null;
-        private DcMotor backRightDrive = null;
+    // Declare OpMode members for each of the 4 motors.
+    private ElapsedTime runtime = new ElapsedTime();
+    private DcMotor frontLeftDrive = null;
+    private DcMotor backLeftDrive = null;
+    private DcMotor frontRightDrive = null;
+    private DcMotor backRightDrive = null;
 
-        @Override
-        public void runOpMode () {
+    @Override
+    public void runOpMode () {
 
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
