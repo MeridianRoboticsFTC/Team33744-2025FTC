@@ -4,11 +4,14 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
+import java.util.logging.Logger;
 
 /*
  * This file contains an example of a Linear "OpMode".
@@ -96,8 +99,8 @@ public class DriverRelativeCode extends LinearOpMode {
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         rightIntake.setDirection(Servo.Direction.FORWARD);
-        leftIntake.setDirection(Servo.Direction.FORWARD);
-        flyWheel.setDirection(DcMotor.Direction.FORWARD);
+        leftIntake.setDirection(Servo.Direction.REVERSE);
+        flyWheel.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -172,15 +175,14 @@ public class DriverRelativeCode extends LinearOpMode {
             backLeftDrive.setPower(backLeftPower);
             backRightDrive.setPower(backRightPower);
 
-
             if(gamepad1.right_bumper) {
-                rightIntake.setPosition(1.0);
-                leftIntake.setPosition(1.0);
-
+                rightIntake.setPosition(0.5);
+                leftIntake.setPosition(0.5);
             } else {
                 rightIntake.setPosition(0.0);
                 leftIntake.setPosition(0.0);
             }
+
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
