@@ -176,8 +176,8 @@ public class DriverRelativeCode extends LinearOpMode {
             backRightDrive.setPower(backRightPower);
 
             if(gamepad1.right_bumper) {
-                rightIntake.setPosition(0.5);
-                leftIntake.setPosition(0.5);
+                rightIntake.setPosition(0.75);
+                leftIntake.setPosition(0.75);
             } else {
                 rightIntake.setPosition(0.0);
                 leftIntake.setPosition(0.0);
