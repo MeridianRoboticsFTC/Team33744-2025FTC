@@ -98,8 +98,8 @@ public class DriverRelativeCode extends LinearOpMode {
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightIntake.setDirection(Servo.Direction.FORWARD);
-        leftIntake.setDirection(Servo.Direction.REVERSE);
+        rightIntake.setDirection(Servo.Direction.REVERSE);
+        leftIntake.setDirection(Servo.Direction.FORWARD);
         flyWheel.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses START)
@@ -176,8 +176,8 @@ public class DriverRelativeCode extends LinearOpMode {
             backRightDrive.setPower(backRightPower);
 
             if(gamepad1.right_bumper) {
-                rightIntake.setPosition(0.5);
-                leftIntake.setPosition(0.5);
+                rightIntake.setPosition(0.75);
+                leftIntake.setPosition(0.75);
             } else {
                 rightIntake.setPosition(0.0);
                 leftIntake.setPosition(0.0);
