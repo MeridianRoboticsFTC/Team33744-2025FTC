@@ -58,18 +58,18 @@ public class DriverRelativeCode extends LinearOpMode {
 
     private IMU imu  = null;
 
-   
+
     public void runOpMode() {
 
         imu = hardwareMap.get(IMU.class, "imu");
         imu.initialize(
-              new IMU.Parameters(
-                      new RevHubOrientationOnRobot(
-                              RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
-                              RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
-                      )
+                new IMU.Parameters(
+                        new RevHubOrientationOnRobot(
+                                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+                        )
 
-              )
+                )
 
         );
 
@@ -98,8 +98,8 @@ public class DriverRelativeCode extends LinearOpMode {
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightIntake.setDirection(Servo.Direction.FORWARD);
-        leftIntake.setDirection(Servo.Direction.REVERSE);
+        rightIntake.setDirection(Servo.Direction.REVERSE);
+        leftIntake.setDirection(Servo.Direction.FORWARD);
         flyWheel.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses START)
@@ -108,7 +108,7 @@ public class DriverRelativeCode extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
-        flyWheel.setPower(0.3);
+        flyWheel.setPower(0.8);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -175,9 +175,9 @@ public class DriverRelativeCode extends LinearOpMode {
             backLeftDrive.setPower(backLeftPower);
             backRightDrive.setPower(backRightPower);
 
-            if(gamepad1.right_bumper) {
-                rightIntake.setPosition(0.5);
-                leftIntake.setPosition(0.5);
+            if(gamepad1.right_trigger > 0.3) {
+                rightIntake.setPosition(0.75);
+                leftIntake.setPosition(0.75);
             } else {
                 rightIntake.setPosition(0.0);
                 leftIntake.setPosition(0.0);
@@ -187,6 +187,7 @@ public class DriverRelativeCode extends LinearOpMode {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", backLeftPower, backRightPower);
+            telemetry.addData("fly wheel power", flyWheel.getCurrentPosition());
             telemetry.update();
         }
     }
