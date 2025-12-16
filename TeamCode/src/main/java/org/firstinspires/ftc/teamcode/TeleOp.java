@@ -93,7 +93,7 @@ public class TeleOp extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
-        flyWheel.setPower(0.6);
+        flyWheel.setPower(0.5);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
