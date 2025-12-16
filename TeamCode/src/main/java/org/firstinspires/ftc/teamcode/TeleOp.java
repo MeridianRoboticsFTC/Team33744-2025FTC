@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -78,9 +79,12 @@ public class TeleOp extends LinearOpMode {
         // Reverse the direction (flip FORWARD <-> REVERSE ) of any wheel that runs backward
         // Keep testing until ALL the wheels move the robot forward when you push the left joystick forward.
 
+
+        leftDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightDrive.setDirection(DcMotor.Direction.FORWARD);
         rightIntake.setDirection(Servo.Direction.REVERSE);
         leftIntake.setDirection(Servo.Direction.FORWARD);
-        flyWheel.setDirection(DcMotor.Direction.REVERSE);
+        flyWheel.setDirection(DcMotor.Direction.FORWARD);
 
         flyWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // Wait for the game to start (driver presses START)
@@ -89,7 +93,7 @@ public class TeleOp extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
-        flyWheel.setPower(0.8);
+        flyWheel.setPower(0.5);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -104,8 +108,8 @@ public class TeleOp extends LinearOpMode {
             // - This uses basic math to combine motions and is easier to drive straight.
             double drive = -gamepad1.left_stick_y;
             double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            leftPower    = Range.clip(drive + turn, -1.0, 0.6) ;
+            rightPower   = Range.clip(drive - turn, -1.0, 0.6) ;
 
             // Tank Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
