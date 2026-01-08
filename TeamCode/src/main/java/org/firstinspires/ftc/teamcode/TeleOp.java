@@ -1,15 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
 
 /*
  * This file contains an example of a Linear "OpMode".
@@ -39,7 +36,15 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
+
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
+
+
+
+
+
+
+
 
 public class TeleOp extends LinearOpMode {
     // Declare OpMode members for each of the 4 motors.
@@ -57,7 +62,7 @@ public class TeleOp extends LinearOpMode {
 
     public void runOpMode() {
 
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
+        leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -93,7 +98,7 @@ public class TeleOp extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
-        flyWheel.setPower(0.5);
+        flyWheel.setPower(0.63);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -107,9 +112,9 @@ public class TeleOp extends LinearOpMode {
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
             double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 0.6) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 0.6) ;
+            double turn = gamepad1.right_stick_x;
+            leftPower = Range.clip(drive + turn, -1.0, 0.8);
+            rightPower = Range.clip(drive - turn, -1.0, 0.8);
 
             // Tank Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
@@ -125,7 +130,7 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
             telemetry.update();
 
-            if(gamepad1.right_bumper) {
+            if (gamepad1.right_trigger > 0.3) {
                 rightIntake.setPosition(0.75);
                 leftIntake.setPosition(0.75);
             } else {
@@ -133,10 +138,23 @@ public class TeleOp extends LinearOpMode {
                 leftIntake.setPosition(0.0);
             }
 
+            if (gamepad1.left_bumper) {
+                flyWheel.setPower(0.5);
+            }
+            if (gamepad1.left_trigger > 0.1) {
+                flyWheel.setPower(0.85);
+            }
+
+
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("fly wheel power", flyWheel.getPower());
             telemetry.update();
         }
+
+
     }
-}
+
+
+    }
+
