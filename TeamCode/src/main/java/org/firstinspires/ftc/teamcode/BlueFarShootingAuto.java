@@ -74,7 +74,7 @@ public class BlueFarShootingAuto extends LinearOpMode {
     static final double     FORWARD_SPEED = 0.83;
     static final double     TURN_SPEED    = 0.3;
 
-    static final double     FORWARD_SPEED1 = 0.25;
+    static final double     FORWARD_SHOOTING_SPEED = 0.25;
 
 
    // @Override
@@ -104,11 +104,14 @@ public class BlueFarShootingAuto extends LinearOpMode {
 
         // Step 1:  Drive forward for 3 seconds
 
-        leftDrive.setPower(FORWARD_SPEED1);
-        rightDrive.setPower(FORWARD_SPEED1);
+        leftDrive.setPower(FORWARD_SHOOTING_SPEED);
+        rightDrive.setPower(FORWARD_SHOOTING_SPEED);
         sleep(200);
 
         rightDrive.setPower(TURN_SPEED);
+        leftDrive.setPower(-TURN_SPEED);
+
+
 
         sleep(4000);
 
