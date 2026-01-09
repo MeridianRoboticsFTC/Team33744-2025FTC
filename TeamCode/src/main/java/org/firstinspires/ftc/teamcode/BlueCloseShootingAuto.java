@@ -96,7 +96,7 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);
         rightIntake.setDirection(Servo.Direction.REVERSE);
         leftIntake.setDirection(Servo.Direction.FORWARD);
         flyWheel.setDirection(DcMotor.Direction.FORWARD);
@@ -145,10 +145,10 @@ public class BlueCloseShootingAuto extends LinearOpMode {
 // It will go backwords then turn left and go forwards for leave points.
         leftDrive.setPower(BACKWARDS_SPEED);
         rightDrive.setPower(BACKWARDS_SPEED);
-        sleep(200);
+        sleep(1000);
         leftDrive.setPower(-TURN_SPEED);
         rightDrive.setPower(TURN_SPEED);
-        sleep(200);
+        sleep(500);
         leftDrive.setPower(FORWARD_SPEED);
         rightDrive.setPower(FORWARD_SPEED);
 
