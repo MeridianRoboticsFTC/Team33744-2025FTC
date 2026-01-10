@@ -108,7 +108,7 @@ public class RedCloseShootingAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        flyWheel.setPower(0.6);
+        flyWheel.setPower(0.7);
 
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 

@@ -106,7 +106,7 @@ public class RedFarShootingAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        flyWheel.setPower(0.8);
+        flyWheel.setPower(1.0);
 
 
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
@@ -115,11 +115,11 @@ public class RedFarShootingAuto extends LinearOpMode {
 
         leftDrive.setPower(FORWARD_SPEED);
         rightDrive.setPower(FORWARD_SPEED);
-        sleep(600);
-
-        rightDrive.setPower(TURN_SPEED);
-        leftDrive.setPower(-TURN_SPEED);
         sleep(300);
+
+        rightDrive.setPower(-TURN_SPEED);
+        leftDrive.setPower(TURN_SPEED);
+        sleep(400);
         rightDrive.setPower(0);
         leftDrive.setPower(0);
 
