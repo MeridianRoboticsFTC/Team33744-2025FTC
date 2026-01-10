@@ -139,10 +139,10 @@ public class TeleOp extends LinearOpMode {
             }
 
             if (gamepad1.left_bumper) {
-                flyWheel.setPower(0.5);
+                flyWheel.setPower(0.6);
             }
             if (gamepad1.left_trigger > 0.1) {
-                flyWheel.setPower(0.85);
+                flyWheel.setPower(0.83);
             }
 
 

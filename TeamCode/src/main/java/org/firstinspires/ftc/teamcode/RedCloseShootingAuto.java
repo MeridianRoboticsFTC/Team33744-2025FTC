@@ -56,11 +56,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-
 @Autonomous(name = "Red Close Shooting Auto", group = "Robot")
 
 public class RedCloseShootingAuto extends LinearOpMode {
+
     /* Declare OpMode members. */
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
@@ -74,7 +73,7 @@ public class RedCloseShootingAuto extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
 
-    static final double BACKWARDS_SPEED = -0.9;
+    static final double BACKWARDS_SPEED = -0.4;
     static final double TURN_SPEED = 0.5;
 
     static final double FORWARD_SPEED = 0.6;
@@ -109,18 +108,15 @@ public class RedCloseShootingAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        flyWheel.setPower(0.7);
+        flyWheel.setPower(0.6);
 
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
         // Step 1:  Drive forward for 3 seconds
         leftDrive.setPower(BACKWARDS_SPEED);
         rightDrive.setPower(BACKWARDS_SPEED);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.6)) {
-            telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
+        sleep( 1500);
+
         leftDrive.setPower(0);
         rightDrive.setPower(0);
         sleep(4000);
@@ -143,7 +139,7 @@ public class RedCloseShootingAuto extends LinearOpMode {
         rightIntake.setPosition(0.0);
         leftIntake.setPosition(0.0);
 
-        // Will go backwords then turn left and go forwards for leave points.
+// It will go backwords then turn left and go forwards for leave points.
         leftDrive.setPower(BACKWARDS_SPEED);
         rightDrive.setPower(BACKWARDS_SPEED);
         sleep(1000);
@@ -152,6 +148,7 @@ public class RedCloseShootingAuto extends LinearOpMode {
         sleep(500);
         leftDrive.setPower(FORWARD_SPEED);
         rightDrive.setPower(FORWARD_SPEED);
+        sleep(350);
 
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.0)) {
@@ -186,6 +183,4 @@ public class RedCloseShootingAuto extends LinearOpMode {
         sleep(1000);
     }
 }
-
-
 

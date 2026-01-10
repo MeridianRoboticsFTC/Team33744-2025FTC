@@ -57,7 +57,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name="BlueFar Shooting Auto", group="Robot")
+@Autonomous(name="Red Far Shooting Auto", group="Robot")
 
 public class RedFarShootingAuto extends LinearOpMode {
 
@@ -71,7 +71,7 @@ public class RedFarShootingAuto extends LinearOpMode {
 
     private Servo leftIntake = null;
 
-    private ElapsedTime     runtime = new ElapsedTime();
+    private ElapsedTime runtime = new ElapsedTime();
 
 
     static final double     FORWARD_SPEED = 0.83;
@@ -84,8 +84,11 @@ public class RedFarShootingAuto extends LinearOpMode {
     public void runOpMode() {
 
         // Initialize the drive system variables.
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
+        leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        flyWheel = hardwareMap.get(DcMotor.class, "flywheel");
+        leftIntake = hardwareMap.get(Servo.class, "left_intake");
+        rightIntake = hardwareMap.get(Servo.class, "right_intake");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
@@ -103,19 +106,22 @@ public class RedFarShootingAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        flyWheel.setPower(0.75);
+        flyWheel.setPower(0.8);
 
 
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
         // Step 1:  Drive forward for 3 seconds
 
-        leftDrive.setPower(FORWARD_SHOOTING_SPEED);
-        rightDrive.setPower(FORWARD_SHOOTING_SPEED);
-        sleep(200);
+        leftDrive.setPower(FORWARD_SPEED);
+        rightDrive.setPower(FORWARD_SPEED);
+        sleep(600);
 
-        leftDrive.setPower(TURN_SPEED);
-        rightDrive.setPower(-TURN_SPEED);
+        rightDrive.setPower(TURN_SPEED);
+        leftDrive.setPower(-TURN_SPEED);
+        sleep(300);
+        rightDrive.setPower(0);
+        leftDrive.setPower(0);
 
 
         sleep(4000);
@@ -131,7 +137,7 @@ public class RedFarShootingAuto extends LinearOpMode {
         sleep(500);
         rightIntake.setPosition(0.0);
         leftIntake.setPosition(0.0);
-        sleep(4000);
+        sleep(5000);
         rightIntake.setPosition(0.75);
         leftIntake.setPosition(0.75);
         sleep(500);

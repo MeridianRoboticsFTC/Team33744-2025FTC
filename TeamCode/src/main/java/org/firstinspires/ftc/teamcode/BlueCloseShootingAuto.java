@@ -73,7 +73,7 @@ public class BlueCloseShootingAuto extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
 
-    static final double BACKWARDS_SPEED = -0.9;
+    static final double BACKWARDS_SPEED = -0.4;
     static final double TURN_SPEED = 0.5;
 
     static final double FORWARD_SPEED = 0.6;
@@ -108,18 +108,15 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        flyWheel.setPower(0.7);
+        flyWheel.setPower(0.6);
 
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
         // Step 1:  Drive forward for 3 seconds
         leftDrive.setPower(BACKWARDS_SPEED);
         rightDrive.setPower(BACKWARDS_SPEED);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.6)) {
-            telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
+        sleep( 1500);
+
         leftDrive.setPower(0);
         rightDrive.setPower(0);
         sleep(4000);
@@ -151,6 +148,7 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         sleep(500);
         leftDrive.setPower(FORWARD_SPEED);
         rightDrive.setPower(FORWARD_SPEED);
+        sleep(350);
 
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.0)) {
