@@ -55,13 +55,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "Shooting Auto", group = "Robot")
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-public class ShootingAuto extends LinearOpMode {
+@Autonomous(name="Red Far Shooting Auto", group="Robot")
+
+public class RedFarShootingAuto extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
+    private DcMotor leftDrive   = null;
+    private DcMotor rightDrive  = null;
 
     private DcMotor flyWheel = null;
 
@@ -72,10 +74,13 @@ public class ShootingAuto extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
 
-    static final double BACKWARDS_SPEED = -0.6;
-    static final double TURN_SPEED = 0.5;
+    static final double     FORWARD_SPEED = 0.83;
+    static final double     TURN_SPEED    = 0.3;
+
+    static final double     FORWARD_SHOOTING_SPEED = 0.25;
 
 
+    // @Override
     public void runOpMode() {
 
         // Initialize the drive system variables.
@@ -88,9 +93,6 @@ public class ShootingAuto extends LinearOpMode {
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
         rightIntake.setDirection(Servo.Direction.REVERSE);
@@ -104,42 +106,53 @@ public class ShootingAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        flyWheel.setPower(0.5);
+        flyWheel.setPower(0.8);
+
 
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
         // Step 1:  Drive forward for 3 seconds
-        leftDrive.setPower(BACKWARDS_SPEED);
-        rightDrive.setPower(BACKWARDS_SPEED);
+
+        leftDrive.setPower(FORWARD_SPEED);
+        rightDrive.setPower(FORWARD_SPEED);
+        sleep(600);
+
+        rightDrive.setPower(TURN_SPEED);
+        leftDrive.setPower(-TURN_SPEED);
+        sleep(300);
+        rightDrive.setPower(0);
+        leftDrive.setPower(0);
+
+
+        sleep(4000);
+
+        rightIntake.setPosition(0.75);
+        leftIntake.setPosition(0.75);
+        sleep(500);
+        rightIntake.setPosition(0.0);
+        leftIntake.setPosition(0.0);
+        sleep(4000);
+        rightIntake.setPosition(0.75);
+        leftIntake.setPosition(0.75);
+        sleep(500);
+        rightIntake.setPosition(0.0);
+        leftIntake.setPosition(0.0);
+        sleep(5000);
+        rightIntake.setPosition(0.75);
+        leftIntake.setPosition(0.75);
+        sleep(500);
+        rightIntake.setPosition(0.0);
+        leftIntake.setPosition(0.0);
+
+        leftDrive.setPower(FORWARD_SPEED);
+        rightDrive.setPower(FORWARD_SPEED);
+
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.6)) {
             telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-        sleep(3000);
 
-        rightIntake.setPosition(0.75);
-        leftIntake.setPosition(0.75);
-        sleep(500);
-        rightIntake.setPosition(0.0);
-        leftIntake.setPosition(0.0);
-        sleep(3000);
-        rightIntake.setPosition(0.75);
-        leftIntake.setPosition(0.75);
-        sleep(500);
-        rightIntake.setPosition(0.0);
-        leftIntake.setPosition(0.0);
-        leftDrive.setPower(BACKWARDS_SPEED);
-        rightDrive.setPower(BACKWARDS_SPEED);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.0)) {
-            telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
         // Step 2:  Spin right for 1.3 seconds
 //        leftDrive.setPower(TURN_SPEED);
 //        rightDrive.setPower(-TURN_SPEED);
@@ -159,11 +172,11 @@ public class ShootingAuto extends LinearOpMode {
 //        }
 
         // Step 4:  Stop
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
 
         telemetry.addData("Path", "Complete");
-        telemetry.addData("flyWheel", "0.25");
         telemetry.update();
         sleep(1000);
     }
 }
-

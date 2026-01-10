@@ -1,3 +1,12 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -27,13 +36,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
-
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
  * This OpMode illustrates the concept of driving a path based on time.
@@ -54,32 +56,50 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="CrossLineAuto", group="Robot")
-//@Disabled
-public class FirstAuto extends LinearOpMode {
+@Autonomous(name = "Red Close Shooting Auto", group = "Robot")
+
+public class RedCloseShootingAuto extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private DcMotor         leftDrive   = null;
-    private DcMotor         rightDrive  = null;
+    private DcMotor leftDrive = null;
+    private DcMotor rightDrive = null;
 
-    private ElapsedTime     runtime = new ElapsedTime();
+    private DcMotor flyWheel = null;
+
+    private Servo rightIntake = null;
+
+    private Servo leftIntake = null;
+
+    private ElapsedTime runtime = new ElapsedTime();
 
 
-    static final double     FORWARD_SPEED = 0.6;
-    static final double     TURN_SPEED    = 0.5;
+    static final double BACKWARDS_SPEED = -0.4;
+    static final double TURN_SPEED = 0.5;
 
-   // @Override
+    static final double FORWARD_SPEED = 0.6;
+
+
+
     public void runOpMode() {
 
         // Initialize the drive system variables.
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
+        leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        flyWheel = hardwareMap.get(DcMotor.class, "flywheel");
+        leftIntake = hardwareMap.get(Servo.class, "left_intake");
+        rightIntake = hardwareMap.get(Servo.class, "right_intake");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightIntake.setDirection(Servo.Direction.REVERSE);
+        leftIntake.setDirection(Servo.Direction.FORWARD);
+        flyWheel.setDirection(DcMotor.Direction.FORWARD);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");
@@ -88,17 +108,55 @@ public class FirstAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
+        flyWheel.setPower(0.6);
+
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
         // Step 1:  Drive forward for 3 seconds
+        leftDrive.setPower(BACKWARDS_SPEED);
+        rightDrive.setPower(BACKWARDS_SPEED);
+        sleep( 1500);
+
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+        sleep(4000);
+
+        rightIntake.setPosition(0.75);
+        leftIntake.setPosition(0.75);
+        sleep(500);
+        rightIntake.setPosition(0.0);
+        leftIntake.setPosition(0.0);
+        sleep(4000);
+        rightIntake.setPosition(0.75);
+        leftIntake.setPosition(0.75);
+        sleep(500);
+        rightIntake.setPosition(0.0);
+        leftIntake.setPosition(0.0);
+        sleep(4000);
+        rightIntake.setPosition(0.75);
+        leftIntake.setPosition(0.75);
+        sleep(500);
+        rightIntake.setPosition(0.0);
+        leftIntake.setPosition(0.0);
+
+// It will go backwords then turn left and go forwards for leave points.
+        leftDrive.setPower(BACKWARDS_SPEED);
+        rightDrive.setPower(BACKWARDS_SPEED);
+        sleep(1000);
+        leftDrive.setPower(TURN_SPEED);
+        rightDrive.setPower(-TURN_SPEED);
+        sleep(500);
         leftDrive.setPower(FORWARD_SPEED);
         rightDrive.setPower(FORWARD_SPEED);
+        sleep(350);
+
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.6)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.0)) {
             telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
         // Step 2:  Spin right for 1.3 seconds
 //        leftDrive.setPower(TURN_SPEED);
 //        rightDrive.setPower(-TURN_SPEED);
@@ -118,11 +176,11 @@ public class FirstAuto extends LinearOpMode {
 //        }
 
         // Step 4:  Stop
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
 
         telemetry.addData("Path", "Complete");
+        telemetry.addData("flyWheel", "0.25");
         telemetry.update();
         sleep(1000);
     }
 }
+
