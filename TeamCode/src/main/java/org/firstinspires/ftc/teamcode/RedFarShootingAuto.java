@@ -130,7 +130,7 @@ public class RedFarShootingAuto extends LinearOpMode {
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightIntake.setDirection(Servo.Direction.REVERSE);
+        rightIntake.setDirection(Servo.Direction.REVERSE);  
         leftIntake.setDirection(Servo.Direction.FORWARD);
         flyWheel.setDirection(DcMotor.Direction.REVERSE);
 
