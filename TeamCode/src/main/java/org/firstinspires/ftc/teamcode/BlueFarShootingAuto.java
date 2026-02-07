@@ -59,7 +59,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name="Red Far Shooting Auto", group="Robot")
+@Autonomous(name="Blue Far Shooting Auto", group="Robot")
 
 public class BlueFarShootingAuto extends LinearOpMode {
 
