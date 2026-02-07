@@ -150,6 +150,8 @@ public class RedFarShootingAuto extends LinearOpMode {
 
         backLeftDrive.setPower(FORWARD_SPEED);
         backRightDrive.setPower(FORWARD_SPEED);
+        frontLeftDrive.setPower(FORWARD_SPEED);
+        frontRightDrive.setPower(FORWARD_SPEED);
         sleep(600);
 
         backRightDrive.setPower(TURN_SPEED);
@@ -181,6 +183,9 @@ public class RedFarShootingAuto extends LinearOpMode {
 
         backLeftDrive.setPower(FORWARD_SPEED);
         backRightDrive.setPower(FORWARD_SPEED);
+        frontRightDrive.setPower(FORWARD_SPEED);
+        frontLeftDrive.setPower(FORWARD_SPEED);
+
 
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.6)) {

@@ -125,10 +125,15 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         // Step 1:  Drive forward for 3 seconds
         backLeftDrive.setPower(BACKWARDS_SPEED);
         backRightDrive.setPower(BACKWARDS_SPEED);
+        frontLeftDrive.setPower(BACKWARDS_SPEED);
+        frontRightDrive.setPower(BACKWARDS_SPEED);
+
         sleep( 1500);
 
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        frontLeftDrive.setPower(0);
         sleep(4000);
 
         rightIntake.setPosition(0.75);
@@ -152,12 +157,18 @@ public class BlueCloseShootingAuto extends LinearOpMode {
 // It will go backwords then turn left and go forwards for leave points.
         backLeftDrive.setPower(BACKWARDS_SPEED);
         backRightDrive.setPower(BACKWARDS_SPEED);
+        frontLeftDrive.setPower(BACKWARDS_SPEED);
+        frontRightDrive.setPower(BACKWARDS_SPEED);
         sleep(1000);
         backLeftDrive.setPower(-TURN_SPEED);
+        frontLeftDrive.setPower(-TURN_SPEED);
         backRightDrive.setPower(TURN_SPEED);
+        frontLeftDrive.setPower(TURN_SPEED);
         sleep(500);
         backLeftDrive.setPower(FORWARD_SPEED);
         backRightDrive.setPower(FORWARD_SPEED);
+        frontLeftDrive.setPower(FORWARD_SPEED);
+        frontRightDrive.setPower(FORWARD_SPEED);
         sleep(350);
 
         runtime.reset();
@@ -167,6 +178,8 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         }
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        frontLeftDrive.setPower(0);
         // Step 2:  Spin right for 1.3 seconds
 //        leftDrive.setPower(TURN_SPEED);
 //        rightDrive.setPower(-TURN_SPEED);
