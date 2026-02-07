@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -56,21 +57,23 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "Red Close Shooting Auto", group = "Robot")
+@Autonomous(name = "Blue Close Shooting Auto", group = "Robot")
 
 public class RedCloseShootingAuto extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
-
+    private ElapsedTime runtime = new ElapsedTime();
+    private DcMotor frontLeftDrive = null;
+    private DcMotor backLeftDrive = null;
+    private DcMotor frontRightDrive = null;
+    private DcMotor backRightDrive = null;
     private DcMotor flyWheel = null;
 
     private Servo rightIntake = null;
 
     private Servo leftIntake = null;
 
-    private ElapsedTime runtime = new ElapsedTime();
+    private IMU imu  = null;
 
 
     static final double BACKWARDS_SPEED = -0.4;
@@ -83,8 +86,10 @@ public class RedCloseShootingAuto extends LinearOpMode {
     public void runOpMode() {
 
         // Initialize the drive system variables.
-        leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        frontLeftDrive = hardwareMap.get(DcMotor.class, "front_left_drive");
+        backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
+        frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
+        backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
         flyWheel = hardwareMap.get(DcMotor.class, "flywheel");
         leftIntake = hardwareMap.get(Servo.class, "left_intake");
         rightIntake = hardwareMap.get(Servo.class, "right_intake");
@@ -92,14 +97,19 @@ public class RedCloseShootingAuto extends LinearOpMode {
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flyWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         rightIntake.setDirection(Servo.Direction.REVERSE);
         leftIntake.setDirection(Servo.Direction.FORWARD);
-        flyWheel.setDirection(DcMotor.Direction.FORWARD);
+        flyWheel.setDirection(DcMotor.Direction.REVERSE);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");
@@ -113,12 +123,12 @@ public class RedCloseShootingAuto extends LinearOpMode {
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
         // Step 1:  Drive forward for 3 seconds
-        leftDrive.setPower(BACKWARDS_SPEED);
-        rightDrive.setPower(BACKWARDS_SPEED);
+        backLeftDrive.setPower(BACKWARDS_SPEED);
+        backRightDrive.setPower(BACKWARDS_SPEED);
         sleep( 1500);
 
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
         sleep(4000);
 
         rightIntake.setPosition(0.75);
@@ -140,14 +150,14 @@ public class RedCloseShootingAuto extends LinearOpMode {
         leftIntake.setPosition(0.0);
 
 // It will go backwords then turn left and go forwards for leave points.
-        leftDrive.setPower(BACKWARDS_SPEED);
-        rightDrive.setPower(BACKWARDS_SPEED);
+        backLeftDrive.setPower(BACKWARDS_SPEED);
+        backRightDrive.setPower(BACKWARDS_SPEED);
         sleep(1000);
-        leftDrive.setPower(TURN_SPEED);
-        rightDrive.setPower(-TURN_SPEED);
+        backLeftDrive.setPower(TURN_SPEED);
+        backRightDrive.setPower(-TURN_SPEED);
         sleep(500);
-        leftDrive.setPower(FORWARD_SPEED);
-        rightDrive.setPower(FORWARD_SPEED);
+        backLeftDrive.setPower(FORWARD_SPEED);
+        backRightDrive.setPower(FORWARD_SPEED);
         sleep(350);
 
         runtime.reset();
@@ -155,8 +165,8 @@ public class RedCloseShootingAuto extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
         // Step 2:  Spin right for 1.3 seconds
 //        leftDrive.setPower(TURN_SPEED);
 //        rightDrive.setPower(-TURN_SPEED);
