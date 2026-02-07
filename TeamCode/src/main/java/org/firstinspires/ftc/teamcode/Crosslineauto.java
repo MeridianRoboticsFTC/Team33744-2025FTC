@@ -130,7 +130,7 @@ public class Crosslineauto extends LinearOpMode {
         backRightDrive.setPower(FORWARD_SPEED);
         frontLeftDrive.setPower(FORWARD_SPEED);
         frontRightDrive.setPower(FORWARD_SPEED);
-        sleep(350);
+        sleep(750);
 
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.0)) {
