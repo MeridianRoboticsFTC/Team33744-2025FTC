@@ -123,12 +123,12 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
         // Step 1:  Drive forward for 3 seconds
-        leftDrive.setPower(BACKWARDS_SPEED);
-        rightDrive.setPower(BACKWARDS_SPEED);
+        backLeftDrive.setPower(BACKWARDS_SPEED);
+        backRightDrive.setPower(BACKWARDS_SPEED);
         sleep( 1500);
 
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
         sleep(4000);
 
         rightIntake.setPosition(0.75);
@@ -150,14 +150,14 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         leftIntake.setPosition(0.0);
 
 // It will go backwords then turn left and go forwards for leave points.
-        leftDrive.setPower(BACKWARDS_SPEED);
-        rightDrive.setPower(BACKWARDS_SPEED);
+        backLeftDrive.setPower(BACKWARDS_SPEED);
+        backRightDrive.setPower(BACKWARDS_SPEED);
         sleep(1000);
-        leftDrive.setPower(-TURN_SPEED);
-        rightDrive.setPower(TURN_SPEED);
+        backLeftDrive.setPower(-TURN_SPEED);
+        backRightDrive.setPower(TURN_SPEED);
         sleep(500);
-        leftDrive.setPower(FORWARD_SPEED);
-        rightDrive.setPower(FORWARD_SPEED);
+        backLeftDrive.setPower(FORWARD_SPEED);
+        backRightDrive.setPower(FORWARD_SPEED);
         sleep(350);
 
         runtime.reset();
@@ -165,8 +165,8 @@ public class BlueCloseShootingAuto extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
         // Step 2:  Spin right for 1.3 seconds
 //        leftDrive.setPower(TURN_SPEED);
 //        rightDrive.setPower(-TURN_SPEED);
