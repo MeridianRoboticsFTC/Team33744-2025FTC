@@ -126,7 +126,7 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         frontLeftDrive.setPower(BACKWARDS_SPEED);
         frontRightDrive.setPower(BACKWARDS_SPEED);
 
-        sleep( 500);
+        sleep( 1500);
 
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
