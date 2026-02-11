@@ -57,7 +57,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "Blue Close Basic Shooting Auto", group = "Robot")
+@Autonomous(name = "Blue Close Basic Auto", group = "Robot")
 
 public class BlueCloseShootingAuto extends LinearOpMode {
 

@@ -57,7 +57,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "Red Basic Close Shooting Auto", group = "Robot")
+@Autonomous(name = "Red Close Basic Auto", group = "Robot")
 
 public class RedCloseShootingAuto extends LinearOpMode {
 
@@ -76,7 +76,7 @@ public class RedCloseShootingAuto extends LinearOpMode {
     private IMU imu  = null;
 
 
-    static final double BACKWARDS_SPEED = -0.4;
+    static final double BACKWARDS_SPEED = -0.3;
     static final double TURN_SPEED = 0.5;
 
     static final double FORWARD_SPEED = 0.6;
@@ -118,8 +118,6 @@ public class RedCloseShootingAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        flyWheel.setPower(0.6);
-
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
         // Step 1:  Drive forward for 3 seconds
@@ -155,21 +153,11 @@ public class RedCloseShootingAuto extends LinearOpMode {
         leftIntake.setPosition(0.0);
 
 // It will go backwords then turn left and go forwards for leave points.
-        backLeftDrive.setPower(BACKWARDS_SPEED);
-        backRightDrive.setPower(BACKWARDS_SPEED);
-        frontLeftDrive.setPower(BACKWARDS_SPEED);
-        frontRightDrive.setPower(BACKWARDS_SPEED);
-        sleep(1000);
-        backLeftDrive.setPower(TURN_SPEED);
         frontLeftDrive.setPower(TURN_SPEED);
-        backRightDrive.setPower(-TURN_SPEED);
-        frontLeftDrive.setPower(-TURN_SPEED);
-        sleep(500);
-        backLeftDrive.setPower(FORWARD_SPEED);
-        backRightDrive.setPower(FORWARD_SPEED);
-        frontLeftDrive.setPower(FORWARD_SPEED);
-        frontRightDrive.setPower(FORWARD_SPEED);
-        sleep(350);
+        backLeftDrive.setPower(-TURN_SPEED);
+        frontRightDrive.setPower(-TURN_SPEED);
+        backRightDrive.setPower(TURN_SPEED);
+        sleep(750);
 
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.0)) {
