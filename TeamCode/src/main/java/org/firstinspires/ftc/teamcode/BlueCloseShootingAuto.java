@@ -76,7 +76,7 @@ public class BlueCloseShootingAuto extends LinearOpMode {
     private IMU imu  = null;
 
 
-    static final double BACKWARDS_SPEED = -0.4;
+    static final double BACKWARDS_SPEED = -0.3;
     static final double TURN_SPEED = 0.5;
 
     static final double FORWARD_SPEED = 0.6;
@@ -126,7 +126,7 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         frontLeftDrive.setPower(BACKWARDS_SPEED);
         frontRightDrive.setPower(BACKWARDS_SPEED);
 
-        sleep( 1500);
+        sleep( 500);
 
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
@@ -153,10 +153,10 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         leftIntake.setPosition(0.0);
 
 // It will go backwords then turn left and go forwards for leave points.
-        backLeftDrive.setPower(TURN_SPEED);
-        frontLeftDrive.setPower(TURN_SPEED);
-        backRightDrive.setPower(-TURN_SPEED);
         frontLeftDrive.setPower(-TURN_SPEED);
+        backLeftDrive.setPower(TURN_SPEED);
+        frontRightDrive.setPower(TURN_SPEED);
+        backRightDrive.setPower(-TURN_SPEED);
         sleep(750);
 
         runtime.reset();
