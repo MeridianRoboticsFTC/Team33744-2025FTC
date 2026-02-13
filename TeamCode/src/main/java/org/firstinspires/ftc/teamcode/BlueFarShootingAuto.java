@@ -141,8 +141,6 @@ public class BlueFarShootingAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        flyWheel.setPower(0.8);
-
 
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
@@ -154,12 +152,14 @@ public class BlueFarShootingAuto extends LinearOpMode {
         frontRightDrive.setPower(FORWARD_SPEED);
         sleep(600);
 
-        backRightDrive.setPower(-TURN_SPEED);
-        backLeftDrive.setPower(TURN_SPEED);
+        frontLeftDrive.setPower(-TURN_SPEED);
+        backLeftDrive.setPower(-TURN_SPEED);
+        frontRightDrive.setPower(TURN_SPEED);
+        backRightDrive.setPower(TURN_SPEED);
+
         sleep(300);
         backRightDrive.setPower(0);
         backLeftDrive.setPower(0);
-
 
         sleep(4000);
 
@@ -185,6 +185,8 @@ public class BlueFarShootingAuto extends LinearOpMode {
         backRightDrive.setPower(FORWARD_SPEED);
         frontRightDrive.setPower(FORWARD_SPEED);
         frontLeftDrive.setPower(FORWARD_SPEED);
+
+        sleep(600);
 
 
         runtime.reset();
