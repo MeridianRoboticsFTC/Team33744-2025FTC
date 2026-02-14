@@ -77,7 +77,7 @@ public class BlueFarShootingAuto extends LinearOpMode {
 
     private IMU imu  = null;
 
-    static final double     FORWARD_SPEED = 0.83;
+    static final double     FORWARD_SPEED = 0.5;
     static final double     TURN_SPEED    = 0.3;
 
     static final double     FORWARD_SHOOTING_SPEED = 0.25;
@@ -156,7 +156,7 @@ public class BlueFarShootingAuto extends LinearOpMode {
         backLeftDrive.setPower(-TURN_SPEED);
         frontRightDrive.setPower(TURN_SPEED);
         backRightDrive.setPower(TURN_SPEED);
-        sleep(250);
+        sleep(400);
 
         backRightDrive.setPower(0);
         backLeftDrive.setPower(0);
@@ -187,7 +187,7 @@ public class BlueFarShootingAuto extends LinearOpMode {
         frontRightDrive.setPower(FORWARD_SPEED);
         frontLeftDrive.setPower(FORWARD_SPEED);
 
-        sleep(600);
+        sleep(300);
 
 
         runtime.reset();
