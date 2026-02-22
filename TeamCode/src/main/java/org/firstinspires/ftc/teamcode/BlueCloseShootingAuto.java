@@ -67,14 +67,15 @@ public class BlueCloseShootingAuto extends LinearOpMode {
     private DcMotor backLeftDrive = null;
     private DcMotor frontRightDrive = null;
     private DcMotor backRightDrive = null;
-    private DcMotor flyWheel = null;
+    private DcMotor flyWheelR = null;
+
+    private DcMotor flyWheelL = null;
 
     private Servo rightIntake = null;
 
     private Servo leftIntake = null;
 
     private IMU imu  = null;
-
 
     static final double BACKWARDS_SPEED = -0.3;
     static final double TURN_SPEED = 0.5;
@@ -90,7 +91,8 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
-        flyWheel = hardwareMap.get(DcMotor.class, "flywheel");
+        flyWheelR = hardwareMap.get(DcMotor.class, "flywheel");
+        flyWheelL = hardwareMap.get(DcMotor.class, "flywheel");
         leftIntake = hardwareMap.get(Servo.class, "left_intake");
         rightIntake = hardwareMap.get(Servo.class, "right_intake");
 
@@ -101,7 +103,9 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        flyWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flyWheelR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flyWheelL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -109,7 +113,8 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         rightIntake.setDirection(Servo.Direction.REVERSE);
         leftIntake.setDirection(Servo.Direction.FORWARD);
-        flyWheel.setDirection(DcMotor.Direction.REVERSE);
+        flyWheelR.setDirection(DcMotor.Direction.FORWARD);
+        flyWheelL.setDirection(DcMotor.Direction.REVERSE);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");
@@ -118,22 +123,25 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
+        flyWheelR.setPower(0.7);
+        flyWheelL.setPower(0.7);
+
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
-        // Step 1:  Drive forward for 3 seconds
+        // Step 1:  Drives backwards for 1.5 seconds
         backLeftDrive.setPower(BACKWARDS_SPEED);
         backRightDrive.setPower(BACKWARDS_SPEED);
         frontLeftDrive.setPower(BACKWARDS_SPEED);
         frontRightDrive.setPower(BACKWARDS_SPEED);
 
         sleep( 1500);
-
+        // Stops the robot for 4 seconds
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
         frontRightDrive.setPower(0);
         frontLeftDrive.setPower(0);
         sleep(4000);
-
+        // Moves the servos so it can shoot
         rightIntake.setPosition(0.75);
         leftIntake.setPosition(0.75);
         sleep(500);
@@ -152,13 +160,19 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         rightIntake.setPosition(0.0);
         leftIntake.setPosition(0.0);
 
-// It will go backwords then turn left and go forwards for leave points.
+// Turns the robot left to set up for leave points
         frontLeftDrive.setPower(-TURN_SPEED);
         backLeftDrive.setPower(TURN_SPEED);
         frontRightDrive.setPower(TURN_SPEED);
         backRightDrive.setPower(-TURN_SPEED);
         sleep(750);
 
+// Goes forwards for leave points
+        frontLeftDrive.setPower(FORWARD_SPEED);
+        backLeftDrive.setPower(FORWARD_SPEED);
+        frontRightDrive.setPower(FORWARD_SPEED);
+        backRightDrive.setPower(FORWARD_SPEED);
+        sleep(250);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.0)) {
             telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
@@ -189,7 +203,8 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         // Step 4:  Stop
 
         telemetry.addData("Path", "Complete");
-        telemetry.addData("flyWheel", "0.25");
+        telemetry.addData("flyWheelL", "0.25");
+        telemetry.addData("flyWheelR", "0.25");
         telemetry.update();
         sleep(1000);
     }

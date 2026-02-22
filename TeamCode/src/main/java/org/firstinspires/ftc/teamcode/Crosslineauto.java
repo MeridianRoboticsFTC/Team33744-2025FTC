@@ -118,11 +118,9 @@ public class Crosslineauto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        flyWheel.setPower(0.6);
-
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
-        // Step 1:  Drive forward for 3 seconds
+        // Stop 1:  Drive forward for 3 seconds
 
 
 // It will go backwords then turn left and go forwards for leave points.

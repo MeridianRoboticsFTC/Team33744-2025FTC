@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -69,7 +70,8 @@ public class RedFarShootingAuto extends LinearOpMode {
     private DcMotor backLeftDrive = null;
     private DcMotor frontRightDrive = null;
     private DcMotor backRightDrive = null;
-    private DcMotor flyWheel = null;
+    private DcMotor flyWheelR = null;
+    private DcMotor flyWheelL = null;
 
     private Servo rightIntake = null;
 
@@ -77,7 +79,7 @@ public class RedFarShootingAuto extends LinearOpMode {
 
     private IMU imu  = null;
 
-    static final double     FORWARD_SPEED = 0.83;
+    static final double     FORWARD_SPEED = 0.5;
     static final double     TURN_SPEED    = 0.3;
 
     static final double     FORWARD_SHOOTING_SPEED = 0.25;
@@ -107,7 +109,8 @@ public class RedFarShootingAuto extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
-        flyWheel = hardwareMap.get(DcMotor.class, "flywheel");
+        flyWheelL = hardwareMap.get(DcMotor.class, "flywheel");
+        flyWheelR = hardwareMap.get(DcMotor.class, "flywheel");
         leftIntake = hardwareMap.get(Servo.class, "left_intake");
         rightIntake = hardwareMap.get(Servo.class, "right_intake");
         // ########################################################################################
@@ -124,7 +127,8 @@ public class RedFarShootingAuto extends LinearOpMode {
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        flyWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flyWheelR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flyWheelL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -132,7 +136,8 @@ public class RedFarShootingAuto extends LinearOpMode {
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         rightIntake.setDirection(Servo.Direction.REVERSE);
         leftIntake.setDirection(Servo.Direction.FORWARD);
-        flyWheel.setDirection(DcMotor.Direction.REVERSE);
+        flyWheelR.setDirection(DcMotor.Direction.FORWARD);
+        flyWheelL.setDirection(DcMotor.Direction.REVERSE);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");
@@ -141,6 +146,8 @@ public class RedFarShootingAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
+        flyWheelL.setPower(0.7);
+        flyWheelR.setPower(0.7);
 
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
@@ -186,8 +193,7 @@ public class RedFarShootingAuto extends LinearOpMode {
         backRightDrive.setPower(FORWARD_SPEED);
         frontRightDrive.setPower(FORWARD_SPEED);
         frontLeftDrive.setPower(FORWARD_SPEED);
-
-        sleep(600);
+        sleep(200);
 
 
         runtime.reset();

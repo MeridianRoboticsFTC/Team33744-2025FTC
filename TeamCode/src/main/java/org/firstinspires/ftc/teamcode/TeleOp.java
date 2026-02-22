@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -47,7 +48,8 @@ public class TeleOp extends LinearOpMode {
     private DcMotor backLeftDrive = null;
     private DcMotor frontRightDrive = null;
     private DcMotor backRightDrive = null;
-    private DcMotor flyWheel = null;
+    private DcMotor flyWheelR = null;
+    private DcMotor flyWheelL = null;
 
     private Servo rightIntake = null;
 
@@ -78,7 +80,8 @@ public class TeleOp extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
-        flyWheel = hardwareMap.get(DcMotor.class, "flywheel");
+        flyWheelR = hardwareMap.get(DcMotor.class, "flywheelR");
+        flyWheelL = hardwareMap.get(DcMotor.class, "flywheelL");
         leftIntake = hardwareMap.get(Servo.class, "left_intake");
         rightIntake = hardwareMap.get(Servo.class, "right_intake");
         // ########################################################################################
@@ -95,7 +98,9 @@ public class TeleOp extends LinearOpMode {
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        flyWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flyWheelL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flyWheelR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -103,7 +108,8 @@ public class TeleOp extends LinearOpMode {
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         rightIntake.setDirection(Servo.Direction.REVERSE);
         leftIntake.setDirection(Servo.Direction.FORWARD);
-        flyWheel.setDirection(DcMotor.Direction.REVERSE);
+        flyWheelR.setDirection(DcMotor.Direction.FORWARD);
+        flyWheelL.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -111,7 +117,8 @@ public class TeleOp extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
-        flyWheel.setPower(0.5);
+        flyWheelL.setPower(0.5);
+        flyWheelR.setPower(0.5);
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             double max;
@@ -140,6 +147,7 @@ public class TeleOp extends LinearOpMode {
             double frontRightPower = axial - lateral - yaw;
             double backLeftPower   = axial - lateral + yaw;
             double backRightPower  = axial + lateral - yaw;
+            double x = 0;
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
@@ -186,18 +194,24 @@ public class TeleOp extends LinearOpMode {
             }
 
             if(gamepad1.left_trigger > 0.3) {
-                flyWheel.setPower(0.6);
+                x = x - 0.1;
+                flyWheelL.setPower(x);
+                flyWheelL.setPower(x);
+
             }
 
             if(gamepad1.left_bumper) {
-                flyWheel.setPower(0.7);
+                x = x + 0.1;
+                flyWheelR.setPower(x);
+                flyWheelL.setPower(x);
             }
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", backLeftPower, backRightPower);
-            telemetry.addData("fly wheel power", flyWheel.getPower());
+            telemetry.addData("fly wheel power", flyWheelR.getPower());
+            telemetry.addData("fly wheel power", flyWheelL.getPower());
             telemetry.update();
         }
     }
