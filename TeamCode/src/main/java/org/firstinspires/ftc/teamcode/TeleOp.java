@@ -147,7 +147,7 @@ public class TeleOp extends LinearOpMode {
             double frontRightPower = axial - lateral - yaw;
             double backLeftPower   = axial - lateral + yaw;
             double backRightPower  = axial + lateral - yaw;
-            double x = 0;
+            double x = 0.5;
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
@@ -196,7 +196,7 @@ public class TeleOp extends LinearOpMode {
             if(gamepad1.left_trigger > 0.3) {
                 x = x - 0.1;
                 flywheelL.setPower(x);
-                flywheelL.setPower(x);
+                flywheelR.setPower(x);
 
             }
 
