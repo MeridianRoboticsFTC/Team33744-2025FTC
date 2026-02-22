@@ -70,8 +70,8 @@ public class BlueFarShootingAuto extends LinearOpMode {
     private DcMotor backLeftDrive = null;
     private DcMotor frontRightDrive = null;
     private DcMotor backRightDrive = null;
-    private DcMotor flyWheelR = null;
-    private DcMotor flyWheelL = null;
+    private DcMotor flywheelR = null;
+    private DcMotor flywheelL = null;
 
     private Servo rightIntake = null;
 
@@ -109,8 +109,8 @@ public class BlueFarShootingAuto extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
-        flyWheelL = hardwareMap.get(DcMotor.class, "flywheelL");
-        flyWheelR = hardwareMap.get(DcMotor.class, "flywheelR");
+        flywheelL = hardwareMap.get(DcMotor.class, "flywheelL");
+        flywheelR = hardwareMap.get(DcMotor.class, "flywheelR");
         leftIntake = hardwareMap.get(Servo.class, "left_intake");
         rightIntake = hardwareMap.get(Servo.class, "right_intake");
         // ########################################################################################
@@ -127,8 +127,8 @@ public class BlueFarShootingAuto extends LinearOpMode {
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        flyWheelR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        flyWheelL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flywheelR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flywheelL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -136,8 +136,8 @@ public class BlueFarShootingAuto extends LinearOpMode {
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         rightIntake.setDirection(Servo.Direction.REVERSE);
         leftIntake.setDirection(Servo.Direction.FORWARD);
-        flyWheelR.setDirection(DcMotor.Direction.FORWARD);
-        flyWheelL.setDirection(DcMotor.Direction.REVERSE);
+        flywheelR.setDirection(DcMotor.Direction.FORWARD);
+        flywheelL.setDirection(DcMotor.Direction.REVERSE);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");
@@ -146,8 +146,8 @@ public class BlueFarShootingAuto extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        flyWheelL.setPower(0.7);
-        flyWheelR.setPower(0.7);
+        flywheelL.setPower(0.7);
+        flywheelR.setPower(0.7);
 
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 

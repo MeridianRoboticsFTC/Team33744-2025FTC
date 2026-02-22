@@ -48,8 +48,8 @@ public class TeleOp extends LinearOpMode {
     private DcMotor backLeftDrive = null;
     private DcMotor frontRightDrive = null;
     private DcMotor backRightDrive = null;
-    private DcMotor flyWheelR = null;
-    private DcMotor flyWheelL = null;
+    private DcMotor flywheelR = null;
+    private DcMotor flywheelL = null;
 
     private Servo rightIntake = null;
 
@@ -80,8 +80,8 @@ public class TeleOp extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
-        flyWheelR = hardwareMap.get(DcMotor.class, "flywheelR");
-        flyWheelL = hardwareMap.get(DcMotor.class, "flywheelL");
+        flywheelR = hardwareMap.get(DcMotor.class, "flywheelR");
+        flywheelL = hardwareMap.get(DcMotor.class, "flywheelL");
         leftIntake = hardwareMap.get(Servo.class, "left_intake");
         rightIntake = hardwareMap.get(Servo.class, "right_intake");
         // ########################################################################################
@@ -98,8 +98,8 @@ public class TeleOp extends LinearOpMode {
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        flyWheelL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        flyWheelR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flywheelL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flywheelR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -108,8 +108,8 @@ public class TeleOp extends LinearOpMode {
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         rightIntake.setDirection(Servo.Direction.REVERSE);
         leftIntake.setDirection(Servo.Direction.FORWARD);
-        flyWheelR.setDirection(DcMotor.Direction.FORWARD);
-        flyWheelL.setDirection(DcMotor.Direction.REVERSE);
+        flywheelR.setDirection(DcMotor.Direction.FORWARD);
+        flywheelL.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -117,8 +117,8 @@ public class TeleOp extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
-        flyWheelL.setPower(0.5);
-        flyWheelR.setPower(0.5);
+        flywheelL.setPower(0.5);
+        flywheelR.setPower(0.5);
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             double max;
@@ -195,23 +195,23 @@ public class TeleOp extends LinearOpMode {
 
             if(gamepad1.left_trigger > 0.3) {
                 x = x - 0.1;
-                flyWheelL.setPower(x);
-                flyWheelL.setPower(x);
+                flywheelL.setPower(x);
+                flywheelL.setPower(x);
 
             }
 
             if(gamepad1.left_bumper) {
                 x = x + 0.1;
-                flyWheelR.setPower(x);
-                flyWheelL.setPower(x);
+                flywheelR.setPower(x);
+                flywheelL.setPower(x);
             }
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", backLeftPower, backRightPower);
-            telemetry.addData("fly wheel power", flyWheelR.getPower());
-            telemetry.addData("fly wheel power", flyWheelL.getPower());
+            telemetry.addData("fly wheel power", flywheelR.getPower());
+            telemetry.addData("fly wheel power", flywheelL.getPower());
             telemetry.update();
         }
     }
