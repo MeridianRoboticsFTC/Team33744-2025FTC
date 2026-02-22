@@ -109,8 +109,8 @@ public class RedFarShootingAuto extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
-        flyWheelL = hardwareMap.get(DcMotor.class, "flywheel");
-        flyWheelR = hardwareMap.get(DcMotor.class, "flywheel");
+        flyWheelL = hardwareMap.get(DcMotor.class, "flywheelL");
+        flyWheelR = hardwareMap.get(DcMotor.class, "flywheelR");
         leftIntake = hardwareMap.get(Servo.class, "left_intake");
         rightIntake = hardwareMap.get(Servo.class, "right_intake");
         // ########################################################################################

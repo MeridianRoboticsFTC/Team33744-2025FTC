@@ -91,8 +91,8 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
-        flyWheelR = hardwareMap.get(DcMotor.class, "flywheel");
-        flyWheelL = hardwareMap.get(DcMotor.class, "flywheel");
+        flyWheelR = hardwareMap.get(DcMotor.class, "flywheelR");
+        flyWheelL = hardwareMap.get(DcMotor.class, "flywheelL");
         leftIntake = hardwareMap.get(Servo.class, "left_intake");
         rightIntake = hardwareMap.get(Servo.class, "right_intake");
 
