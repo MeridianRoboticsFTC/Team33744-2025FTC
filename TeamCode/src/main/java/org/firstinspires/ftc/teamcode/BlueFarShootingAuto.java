@@ -188,7 +188,7 @@ public class BlueFarShootingAuto extends LinearOpMode {
         sleep(500);
         rightIntake.setPosition(0.0);
         leftIntake.setPosition(0.0);
-
+        sleep(3000);
         backLeftDrive.setPower(FORWARD_SPEED);
         backRightDrive.setPower(FORWARD_SPEED);
         frontRightDrive.setPower(FORWARD_SPEED);

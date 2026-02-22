@@ -117,8 +117,8 @@ public class TeleOp extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
-        flywheelL.setPower(0.5);
-        flywheelR.setPower(0.5);
+        flywheelL.setPower(0.7);
+        flywheelR.setPower(0.7);
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             double max;
@@ -194,24 +194,22 @@ public class TeleOp extends LinearOpMode {
             }
 
             if(gamepad1.left_trigger > 0.3) {
-                x = x - 0.1;
-                flywheelL.setPower(x);
-                flywheelR.setPower(x);
-
+                flywheelL.setPower(0.6);
+                flywheelL.setPower(0.6);
             }
 
-            if(gamepad1.left_bumper) {
-                x = x + 0.1;
-                flywheelR.setPower(x);
-                flywheelL.setPower(x);
+            if(gamepad1.left_bumper)   {
+                flywheelR.setPower(0.7);
+                flywheelL.setPower(0.7);
             }
+
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", backLeftPower, backRightPower);
-            telemetry.addData("fly wheel power", flywheelR.getPower());
-            telemetry.addData("fly wheel power", flywheelL.getPower());
+            telemetry.addData("fly r wheel power", flywheelR.getPower());
+            telemetry.addData("fly l wheel power", flywheelL.getPower());
             telemetry.update();
         }
     }
