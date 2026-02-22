@@ -113,9 +113,8 @@ public class BlueCloseShootingAuto extends LinearOpMode {
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         rightIntake.setDirection(Servo.Direction.REVERSE);
         leftIntake.setDirection(Servo.Direction.FORWARD);
-        flywheelR.setDirection(DcMotor.Direction.FORWARD);
-        flywheelL.setDirection(DcMotor.Direction.REVERSE);
-
+        flywheelR.setDirection(DcMotor.Direction.REVERSE);
+        flywheelL.setDirection(DcMotor.Direction.FORWARD);
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
